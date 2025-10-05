@@ -1,6 +1,6 @@
 const createTodo = (title, description, dueDate, priority, projectId) => {
     return {
-        id: Date.now().toString(),
+        id: Date.now().toString() + Math.random(),
         title,
         description,
         dueDate,
