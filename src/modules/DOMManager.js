@@ -1,5 +1,5 @@
 import { format, isToday, isPast, parseISO, parse } from 'date-fns';
-import createTodo from './Todos.js';
+import createTodo from './Todo.js';
 
 const DOMManager = (todoManager) => {
     let currentView = 'today';
@@ -264,7 +264,9 @@ const DOMManager = (todoManager) => {
 
     const renderProjects = () => {
         elements.projectsList.innerHTML = '';
-        const projectDiv = document.createElement('div');
+        todoManager.getAllProjects().forEach(project => {
+            const projectDiv = document.createElement('div');
+        })
         projectDiv.className = 'project-item';
         projectDiv.dataset.id = project.id;
 
@@ -293,7 +295,7 @@ const DOMManager = (todoManager) => {
 
         if (currentView === 'today') {
             title = 'Today';
-            const today = new Date().toISOString.split('T')[0];
+            const today = new Date().toISOString().split('T')[0];
             todosToShow = todoManager.getAllTodos().filter(todo => todo.dueDate === today);
             subtitle = format(new Date(), 'EEEE, MMMM d');
         } else if (currentView === 'upcoming') {

@@ -1,4 +1,3 @@
-import { add } from "date-fns";
 import createProject from "./Projects.js";
 
 const TodoManager =(() => {
@@ -17,7 +16,7 @@ const TodoManager =(() => {
         return newProject;
     };
 
-    const removeProject = (projectId) => {
+    const deleteProject = (projectId) => {
         if (projects.length <= 1) return;
 
         projects = projects.filter(p =>p.id !== projectId);
@@ -53,7 +52,7 @@ const TodoManager =(() => {
 
     return {
         addProject,
-        removeProject,
+        deleteProject,
         getCurrentProject,
         setCurrentProject,
         getAllProjects,
