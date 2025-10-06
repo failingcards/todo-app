@@ -264,28 +264,29 @@ const DOMManager = (todoManager) => {
 
     const renderProjects = () => {
         elements.projectsList.innerHTML = '';
+        
         todoManager.getAllProjects().forEach(project => {
             const projectDiv = document.createElement('div');
-        })
-        projectDiv.className = 'project-item';
-        projectDiv.dataset.id = project.id;
+            projectDiv.className = 'project-item';
+            projectDiv.dataset.id = project.id;
 
-        if (project.id === todoManager.getCurrentProject().id && currentView === 'project') {
-            projectDiv.classList.add('active');
-        }
+            if (project.id === todoManager.getCurrentProject().id && currentView === 'project') {
+                projectDiv.classList.add('active');
+            }
 
-        projectDiv.innerHTML = `
-            <div class="project-info">
-                <span class="project-name">${project.name}</span>
-                <span class="count">${project.todos.length}</span>
-            </div>
-            <div class="project-actions">
-                <button class="btn-icon btn-edit-project" title="Edit project">✎</button>
-                <button class="btn-icon btn-delete-project" title="Delete project">×</button>
-            </div>
-        `;
+            projectDiv.innerHTML = `
+                <div class="project-info">
+                    <span class="project-name">${project.name}</span>
+                    <span class="count">${project.todos.length}</span>
+                </div>
+                <div class="project-actions">
+                    <button class="btn-icon btn-edit-project" title="Edit project">✎</button>
+                    <button class="btn-icon btn-delete-project" title="Delete project">×</button>
+                </div>
+            `;
 
-        elements.projectsList.appendChild(projectDiv);
+            elements.projectsList.appendChild(projectDiv);
+        });
     };
 
     const renderTodos = () => {
