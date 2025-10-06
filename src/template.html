@@ -1,11 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="app">
     
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="app-title">My Tasks</h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="today">
+          <span>📅</span>
+          <span>Today</span>
+          <span class="count">0</span>
+        </button>
+        
+        <button class="nav-item" data-view="upcoming">
+          <span>📆</span>
+          <span>Upcoming</span>
+          <span class="count">0</span>
+        </button>
+      </nav>
+
+      <div class="projects-section">
+        <div class="projects-header">
+          <h2>Projects</h2>
+          <button class="btn-icon" id="add-project-btn" title="Add project">+</button>
+        </div>
+        <div id="projects-list" class="projects-list"></div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="main-header">
+        <div>
+          <h2 id="view-title">Today</h2>
+          <p id="view-subtitle" class="subtitle"></p>
+        </div>
+        <button class="btn-primary" id="add-todo-btn">
+          <span>+</span>
+          Add Task
+        </button>
+      </div>
+
+      <div id="todos-container" class="todos-container"></div>
+    </main>
+
+  </div>
+
+  <!-- Add Todo Modal -->
+  <div id="todo-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Task</h3>
+        <button class="btn-icon" id="close-todo-modal">×</button>
+      </div>
+      <form id="todo-form">
+        <input type="text" id="todo-title" placeholder="Task name" required autofocus>
+        <textarea id="todo-description" placeholder="Description" rows="3"></textarea>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" id="todo-date" required>
+          </div>
+          <div class="form-group">
+            <label>Priority</label>
+            <select id="todo-priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Project</label>
+          <select id="todo-project"></select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancel-todo-btn">Cancel</button>
+          <button type="submit" class="btn-primary">Add Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Project Modal -->
+  <div id="project-modal" class="modal-overlay hidden">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h3>New Project</h3>
+        <button class="btn-icon" id="close-project-modal">×</button>
+      </div>
+      <form id="project-form">
+        <input type="text" id="project-name" placeholder="Project name" required autofocus>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancel-project-btn">Cancel</button>
+          <button type="submit" class="btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
