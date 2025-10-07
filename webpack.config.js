@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
@@ -17,13 +16,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
+      favicon: "./src/favicon.svg"  // Add this line
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: 'favicon.svg', to: 'favicon.svg' }
-      ]
-    })
-],
+  ],
   module: {
     rules: [
       {
