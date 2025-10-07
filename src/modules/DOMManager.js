@@ -44,7 +44,7 @@ const DOMManager = (todoManager) => {
         navItem.classList.add('active');
 
         currentView = navItem.dataset.view;
-        render();
+        renderWithTransition();
     };
 
     const handleProjectClick = (e) => {
@@ -66,7 +66,7 @@ const DOMManager = (todoManager) => {
         currentView = 'project';
         
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        render();
+        renderWithTransition();
     };
 
     const handleTodoClick = (e) => {
@@ -103,13 +103,22 @@ const DOMManager = (todoManager) => {
     const deleteTodo = (todoId) => {
         if (!confirm('Are you sure you want to delete this todo?')) return;
 
-        for (const project of todoManager.getAllProjects()) {
-            const todo = project.getTodo(todoId);
-            if (todo) {
-                project.removeTodo(todoId);
-                render();
-                return;
-            }
+        // Add deleting animation
+        const todoElement = document.querySelector(`[data-id="${todoId}"]`);
+        if (todoElement) {
+            todoElement.classList.add('deleting');
+            
+            // Wait for animation to complete
+            setTimeout(() => {
+                for (const project of todoManager.getAllProjects()) {
+                    const todo = project.getTodo(todoId);
+                    if (todo) {
+                        project.removeTodo(todoId);
+                        render();
+                        return;
+                    }
+                }
+            }, 300);
         }
     };
 
@@ -121,15 +130,27 @@ const DOMManager = (todoManager) => {
             if (!confirm(`Delete "${project.name}" and all its todos?`)) return;
         }
 
-        todoManager.deleteProject(projectId);
-        render();
+        // Add deleting animation
+        const projectElement = document.querySelector(`.project-item[data-id="${projectId}"]`);
+        if (projectElement) {
+            projectElement.classList.add('deleting');
+            
+            // Wait for animation to complete
+            setTimeout(() => {
+                todoManager.deleteProject(projectId);
+                render();
+            }, 300);
+        } else {
+            todoManager.deleteProject(projectId);
+            render();
+        }
     };
 
     const openProjectModal = () => {
         editingProjectId = null;
         elements.projectModalTitle.textContent = 'New Project';
         elements.projectSubmitBtn.textContent = 'Add';
-        elements.projectModal.classList.remove('hidden');
+        elements.projectModal.classList.remove('hidden', 'closing');
         elements.projectNameInput.focus();
     };
 
@@ -141,14 +162,19 @@ const DOMManager = (todoManager) => {
         elements.projectModalTitle.textContent = 'Edit Project';
         elements.projectSubmitBtn.textContent = 'Save';
         elements.projectNameInput.value = project.name;
-        elements.projectModal.classList.remove('hidden');
+        elements.projectModal.classList.remove('hidden', 'closing');
         elements.projectNameInput.focus();
     };
 
     const closeProjectModal = () => {
-        elements.projectModal.classList.add('hidden');
-        elements.projectForm.reset();
-        editingProjectId = null;
+        elements.projectModal.classList.add('closing');
+        
+        setTimeout(() => {
+            elements.projectModal.classList.add('hidden');
+            elements.projectModal.classList.remove('closing');
+            elements.projectForm.reset();
+            editingProjectId = null;
+        }, 200);
     };
 
     const openTodoModal = () => {
@@ -156,7 +182,7 @@ const DOMManager = (todoManager) => {
         elements.todoModalTitle.textContent = 'Add Task';
         elements.todoSubmitBtn.textContent = 'Add Task';
         populateProjectDropdown();
-        elements.todoModal.classList.remove('hidden');
+        elements.todoModal.classList.remove('hidden', 'closing');
         elements.todoTitleInput.focus();
     };
 
@@ -177,17 +203,22 @@ const DOMManager = (todoManager) => {
         populateProjectDropdown();
         elements.todoProjectSelect.value = todo.projectId;
 
-        elements.todoModal.classList.remove('hidden');
+        elements.todoModal.classList.remove('hidden', 'closing');
         elements.todoTitleInput.focus();
     };
 
     const closeTodoModal = () => {
-        elements.todoModal.classList.add('hidden');
-        elements.todoForm.reset();
-        editingTodoId = null;
+        elements.todoModal.classList.add('closing');
+        
+        setTimeout(() => {
+            elements.todoModal.classList.add('hidden');
+            elements.todoModal.classList.remove('closing');
+            elements.todoForm.reset();
+            editingTodoId = null;
+        }, 200);
     };
 
-     const populateProjectDropdown = () => {
+    const populateProjectDropdown = () => {
         elements.todoProjectSelect.innerHTML = '';
         todoManager.getAllProjects().forEach(project => {
             const option = document.createElement('option');
@@ -215,7 +246,7 @@ const DOMManager = (todoManager) => {
         }
 
         closeProjectModal();
-        render();
+        setTimeout(() => render(), 50);
     };
 
     const handleTodoSubmit = (e) => {
@@ -259,7 +290,7 @@ const DOMManager = (todoManager) => {
         }
 
         closeTodoModal();
-        render();
+        setTimeout(() => render(), 50);
     };
 
     const renderProjects = () => {
@@ -377,6 +408,29 @@ const DOMManager = (todoManager) => {
         if (upcomingNav) upcomingNav.textContent = upcomingCount;
     };
 
+    const renderWithTransition = () => {
+        // Add transitioning class to fade out
+        elements.viewTitle.classList.add('transitioning');
+        elements.viewSubtitle.classList.add('transitioning');
+        elements.todosContainer.classList.add('transitioning-out');
+
+        setTimeout(() => {
+            // Update content
+            render();
+            
+            // Remove transitioning classes and add fade in
+            elements.viewTitle.classList.remove('transitioning');
+            elements.viewSubtitle.classList.remove('transitioning');
+            elements.todosContainer.classList.remove('transitioning-out');
+            elements.todosContainer.classList.add('transitioning-in');
+
+            // Clean up the transitioning-in class
+            setTimeout(() => {
+                elements.todosContainer.classList.remove('transitioning-in');
+            }, 300);
+        }, 200);
+    };
+
     const render = () => {
         renderProjects();
         renderTodos();
@@ -401,6 +455,31 @@ const DOMManager = (todoManager) => {
 
         elements.projectsList.addEventListener('click', handleProjectClick);
         elements.todosContainer.addEventListener('click', handleTodoClick);
+
+        // Close modal on overlay click
+        elements.projectModal.addEventListener('click', (e) => {
+            if (e.target === elements.projectModal) {
+                closeProjectModal();
+            }
+        });
+
+        elements.todoModal.addEventListener('click', (e) => {
+            if (e.target === elements.todoModal) {
+                closeTodoModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!elements.projectModal.classList.contains('hidden')) {
+                    closeProjectModal();
+                }
+                if (!elements.todoModal.classList.contains('hidden')) {
+                    closeTodoModal();
+                }
+            }
+        });
     };
 
     initializeElements();

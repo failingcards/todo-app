@@ -1,0 +1,962 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #fafafa;
+  color: #202020;
+  line-height: 1.6;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: #fff;
+  border-right: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.sidebar-header {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #202020;
+}
+
+.sidebar-nav {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+  margin-bottom: 4px;
+}
+
+.nav-item:hover {
+  background-color: #f5f5f5;
+  color: #202020;
+}
+
+.nav-item.active {
+  background-color: #e8f3ff;
+  color: #0066cc;
+}
+
+.nav-item .count {
+  margin-left: auto;
+  font-size: 12px;
+  background-color: #e5e5e5;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.nav-item.active .count {
+  background-color: #0066cc;
+  color: white;
+}
+
+/* Projects Section */
+.projects-section {
+  flex: 1;
+  padding: 16px 12px;
+  overflow-y: auto;
+}
+
+.projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 12px;
+}
+
+.projects-header h2 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #999;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.project-item:hover {
+  background-color: #f5f5f5;
+  color: #202020;
+}
+
+.project-item.active {
+  background-color: #e8f3ff;
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.project-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  pointer-events: none;
+}
+
+.project-name {
+  flex: 1;
+}
+
+.project-item .count {
+  font-size: 12px;
+  color: #999;
+}
+
+.project-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.project-item:hover .project-actions {
+  opacity: 1;
+}
+
+.project-actions .btn-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+}
+
+.btn-delete-project {
+  color: #dc3545;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px;
+  background-color: #fafafa;
+}
+
+.main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.main-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #999;
+}
+
+/* Todos Container */
+.todos-container {
+  max-width: 800px;
+}
+
+.todo-item {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.todo-item:hover {
+  border-color: #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d0d0d0;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-checkbox:hover {
+  border-color: #0066cc;
+}
+
+.todo-checkbox.checked {
+  background-color: #0066cc;
+  border-color: #0066cc;
+}
+
+.todo-checkbox.checked::after {
+  content: '✓';
+  color: white;
+  font-size: 14px;
+}
+
+.todo-content {
+  flex: 1;
+}
+
+.todo-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #202020;
+}
+
+.todo-item.completed .todo-title {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.todo-description {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.todo-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #999;
+}
+
+.todo-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.todo-date.overdue {
+  color: #dc3545;
+}
+
+.todo-date.today {
+  color: #ff9500;
+}
+
+.priority-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.priority-high {
+  background-color: #ffe5e5;
+  color: #dc3545;
+}
+
+.priority-medium {
+  background-color: #fff4e5;
+  color: #ff9500;
+}
+
+.priority-low {
+  background-color: #e5f5e5;
+  color: #28a745;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  align-items: center;
+}
+
+.todo-item:hover .todo-actions {
+  opacity: 1;
+}
+
+.btn-edit {
+  color: #666;
+}
+
+.btn-edit:hover {
+  color: #0066cc;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #0052a3;
+}
+
+.btn-secondary {
+  background-color: #f5f5f5;
+  color: #666;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e5e5;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #666;
+  font-size: 20px;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: #f5f5f5;
+  color: #202020;
+}
+
+.btn-delete {
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  background: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-small {
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.modal form input[type="text"],
+.modal form input[type="date"],
+.modal form textarea,
+.modal form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.modal form input:focus,
+.modal form textarea:focus,
+.modal form select:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.modal form textarea {
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* Utility */
+.hidden {
+  display: none;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes modalOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalOverlayOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modalContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalContentOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Content transition for view switching */
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Apply Animations to Elements */
+
+/* Main content area transitions */
+.main-header {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todos-container {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add transition class for view switching */
+.todos-container.transitioning-out {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.todos-container.transitioning-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Todo items fade in when added */
+.todo-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Stagger animation for multiple todos */
+.todo-item:nth-child(1) { animation-delay: 0s; }
+.todo-item:nth-child(2) { animation-delay: 0.05s; }
+.todo-item:nth-child(3) { animation-delay: 0.1s; }
+.todo-item:nth-child(4) { animation-delay: 0.15s; }
+.todo-item:nth-child(5) { animation-delay: 0.2s; }
+.todo-item:nth-child(n+6) { animation-delay: 0.25s; }
+
+/* Todo deletion animation */
+.todo-item.deleting {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+/* Completed todo animation */
+.todo-item.completed {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.todo-item.completed .todo-checkbox::after {
+  animation: checkmark 0.4s ease-out;
+}
+
+/* Project items slide in */
+.project-item {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.project-item:nth-child(1) { animation-delay: 0s; }
+.project-item:nth-child(2) { animation-delay: 0.05s; }
+.project-item:nth-child(3) { animation-delay: 0.1s; }
+.project-item:nth-child(4) { animation-delay: 0.15s; }
+.project-item:nth-child(5) { animation-delay: 0.2s; }
+.project-item:nth-child(n+6) { animation-delay: 0.25s; }
+
+/* Project deletion animation */
+.project-item.deleting {
+  animation: slideOutLeft 0.3s ease-out forwards;
+}
+
+/* Modal animations - Opening */
+.modal-overlay:not(.hidden):not(.closing) {
+  animation: modalOverlayIn 0.25s ease-out;
+}
+
+.modal-overlay:not(.hidden):not(.closing) .modal {
+  animation: modalContentIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Modal animations - Closing */
+.modal-overlay.closing {
+  animation: modalOverlayOut 0.2s ease-in forwards;
+}
+
+.modal-overlay.closing .modal {
+  animation: modalContentOut 0.2s ease-in forwards;
+}
+
+/* Button hover animations */
+.btn-primary,
+.btn-secondary,
+.btn-icon,
+.btn-delete {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
+.btn-icon:active {
+  transform: scale(0.9);
+}
+
+/* Nav item transitions */
+.nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background-color: #0066cc;
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-item.active::before {
+  transform: scaleY(1);
+}
+
+/* Project item active indicator */
+.project-item {
+  position: relative;
+}
+
+.project-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background-color: #0066cc;
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-item.active::before {
+  transform: scaleY(1);
+}
+
+/* Checkbox animation */
+.todo-checkbox {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todo-checkbox:hover {
+  transform: scale(1.1);
+}
+
+.todo-checkbox:active {
+  transform: scale(0.95);
+}
+
+/* Priority badge entrance */
+.priority-badge {
+  animation: fadeInScale 0.3s ease-out 0.1s both;
+}
+
+/* Form input focus animation */
+.modal form input[type="text"],
+.modal form input[type="date"],
+.modal form textarea,
+.modal form select {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal form input[type="text"]:focus,
+.modal form input[type="date"]:focus,
+.modal form textarea:focus,
+.modal form select:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.15);
+}
+
+/* Empty state animation */
+.empty-state {
+  animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+/* Delete button hover effect */
+.btn-delete {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-delete::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dc3545;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.btn-delete:hover::before {
+  transform: scaleX(1);
+}
+
+/* Count badge animation */
+.count {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover .count,
+.project-item:hover .count {
+  transform: scale(1.05);
+}
+
+/* Todo actions slide in on hover */
+.todo-actions {
+  transform: translateX(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.todo-item:hover .todo-actions {
+  transform: translateX(0);
+}
+
+/* Project actions slide in on hover */
+.project-actions {
+  transform: translateX(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.project-item:hover .project-actions {
+  transform: translateX(0);
+}
+
+/* Smooth scroll behavior */
+.main,
+.projects-section {
+  scroll-behavior: smooth;
+}
+
+/* Add transition for todo content strikethrough */
+.todo-title {
+  transition: all 0.3s ease;
+}
+
+/* Date badge subtle pulse for overdue items */
+.todo-date.overdue {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Ripple effect on click */
+.btn-primary,
+.btn-secondary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after,
+.btn-secondary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::after,
+.btn-secondary:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* View title transition */
+#view-title,
+#view-subtitle {
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+#view-title.transitioning,
+#view-subtitle.transitioning {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
